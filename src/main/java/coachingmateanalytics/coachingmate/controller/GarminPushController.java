@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -126,8 +127,11 @@ public class GarminPushController {
     }
 
     @PostMapping("/activity")
-    public ResponseEntity<String> acceptPushedFile1( @ApiParam(type = "String") String info){
-        System.out.println(info);
+    @ApiOperation(value = "push2 data url", notes = "configure2 this url to end point configuration, " +
+            "and the garmin endpoint will transfer the data to this server")
+    public ResponseEntity<String> activity(@RequestBody String info){
+        JSONObject jsonObject = JSON.parseObject(info);
+        logger.info(String.valueOf(jsonObject));
         return null;
     }
 }
