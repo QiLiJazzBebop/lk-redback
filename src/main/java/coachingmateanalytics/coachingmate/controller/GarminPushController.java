@@ -123,15 +123,22 @@ public class GarminPushController {
         }
         httpHeaders.set("Location", "public/garmin_raw");
         return ResponseEntity.accepted().headers(httpHeaders).body("Accept the pushed file");
-
     }
 
     @PostMapping("/activity")
     @ApiOperation(value = "push2 data url", notes = "configure2 this url to end point configuration, " +
             "and the garmin endpoint will transfer the data to this server")
-    public ResponseEntity<String> activity(@RequestBody String info){
+    public ResponseEntity<String> activityReceiverFromGarmin(@RequestBody String info){
         JSONObject jsonObject = JSON.parseObject(info);
         logger.info(String.valueOf(jsonObject));
+        return null;
+    }
+
+    @PostMapping("/push")
+    @ApiOperation(value = "push data url", notes = "configure this url to end point configuration, " +
+            "and the garmin endpoint will transfer the data to this server")
+    public ResponseEntity<String> fileReceiverFromGarmin(@ApiParam(type = "MultipartFile") MultipartFile file, @ApiParam(type = "String") String uploadMetaData) {
+        logger.info(String.valueOf(file.getClass()));
         return null;
     }
 }
