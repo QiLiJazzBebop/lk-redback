@@ -30,7 +30,7 @@ public class GarminPushController {
     ActivityService activityService;
 
     //configure this url to enpoint configuration, and the garmin endpoint will transfer the data to this server
-    @PostMapping("/push")
+    @PostMapping("/pushActivity")
     @ApiOperation(value = "push data url", notes = "configure this url to enpoint configuration, " +
             "and the garmin endpoint will transfer the data to this server")
     public ResponseEntity<String> acceptPushedFile1(@ApiParam(type = "MultipartFile") MultipartFile file, @ApiParam(type = "String") String uploadMetaData) {
