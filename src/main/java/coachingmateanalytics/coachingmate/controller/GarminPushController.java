@@ -29,7 +29,7 @@ public class GarminPushController {
     @Autowired
     ActivityService activityService;
 
-    //configure this url to enpoint configuration, and the garmin endpoint will transfer the data to this server
+    //configure this url to end point configuration, and the garmin endpoint will transfer the data to this server
     @PostMapping("/push")
     @ApiOperation(value = "push data url", notes = "configure this url to enpoint configuration, " +
             "and the garmin endpoint will transfer the data to this server")
