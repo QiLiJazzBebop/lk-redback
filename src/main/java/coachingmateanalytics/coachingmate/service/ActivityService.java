@@ -1,6 +1,6 @@
 package coachingmateanalytics.coachingmate.service;
 
-import coachingmateanalytics.coachingmate.entity.Statistic;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import java.util.List;
  * @Description:
  */
 public interface ActivityService {
-    void saveActivity(Statistic activity);
-    List<Statistic> findAllByUsername(String username);
-    List<Statistic> findAllByAccessToken(String accessToken);
+    void saveActivity(JSONObject activity);
+    List<JSONObject> findAllByUsername(String username);
+    List<JSONObject> findAllByAccessToken(String accessToken);
 }

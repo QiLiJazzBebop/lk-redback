@@ -2,14 +2,18 @@ package coachingmateanalytics.coachingmate.controller;
 
 import coachingmateanalytics.coachingmate.entity.Statistic;
 import coachingmateanalytics.coachingmate.service.ActivityService;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+
+
+
 import hirondelle.date4j.DateTime;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import net.studioblueplanet.fitreader.FitReader;
 import net.studioblueplanet.fitreader.FitRecord;
 import net.studioblueplanet.fitreader.FitRecordRepository;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Timestamp;
+import java.util.Iterator;
 
 @RestController
 public class GarminPushController {
@@ -29,8 +34,8 @@ public class GarminPushController {
 
     @Autowired
     ActivityService activityService;
-
-    //configure this url to end point configuration, and the garmin endpoint will transfer the data to this server
+//
+////    configure this url to end point configuration, and the garmin endpoint will transfer the data to this server
 //    @PostMapping("/push")
 //    @ApiOperation(value = "push data url", notes = "configure this url to end point configuration, " +
 //            "and the garmin endpoint will transfer the data to this server")
@@ -129,9 +134,24 @@ public class GarminPushController {
     @ApiOperation(value = "push2 data url", notes = "configure2 this url to end point configuration, " +
             "and the garmin endpoint will transfer the data to this server")
     public ResponseEntity<String> activityReceiverFromGarmin(@RequestBody String info){
-        JSONObject jsonObject = JSON.parseObject(info);
-        logger.info(String.valueOf(jsonObject));
-        return null;
+        logger.debug("start push activity Receiver From Garmin data");
+        HttpHeaders httpHeaders = new HttpHeaders();
+
+        try {
+//            JSONObject obj = new JSONObject("{\"activities\":[{\"durationInSeconds\":15,\"activeKilocalories\":1,\"averageSpeedInMetersPerSecond\":0.37,\"averageHeartRateInBeatsPerMinute\":99,\"distanceInMeters\":5.62,\"activityName\":\"Running\",\"userId\":\"5073e79f-df60-45dc-92f2-bc0ef300f1f0\",\"deviceName\":\"forerunner935\",\"steps\":8,\"averageRunCadenceInStepsPerMinute\":25.828125,\"averagePaceInMinutesPerKilometer\":45.045044,\"activityId\":8623463169,\"startTimeInSeconds\":1649748853,\"userAccessToken\":\"227a7c55-590d-498f-97ad-fb6ba3cb259f\",\"startTimeOffsetInSeconds\":36000,\"maxPaceInMinutesPerKilometer\":8.888888,\"maxHeartRateInBeatsPerMinute\":107,\"summaryId\":\"8623463169\",\"maxRunCadenceInStepsPerMinute\":156.0,\"maxSpeedInMetersPerSecond\":1.875,\"activityType\":\"RUNNING\"}]}");
+            JSONObject obj = new JSONObject(info);
+            JSONArray array = obj.getJSONArray("activities");
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject activity = array.getJSONObject(i);
+                activityService.saveActivity(activity);
+            }
+        }
+        catch (Exception e){
+            httpHeaders.set("Get json fault", "120");
+            return ResponseEntity.status(503).headers(httpHeaders).body("Failed to process. Reason : " + e.getMessage());
+        }
+        httpHeaders.set("Location", "public/garmin_raw");
+        return ResponseEntity.accepted().headers(httpHeaders).body("Accept the pushed file");
     }
 
     @PostMapping("/push")
