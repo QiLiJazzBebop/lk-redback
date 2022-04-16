@@ -4,6 +4,8 @@ import coachingmateanalytics.coachingmate.dao.ActivityDao;
 import coachingmateanalytics.coachingmate.dao.UserDao;
 import coachingmateanalytics.coachingmate.entity.UserPartner;
 import coachingmateanalytics.coachingmate.service.ActivityService;
+import coachingmateanalytics.coachingmate.utils.Consts;
+import org.bson.Document;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,17 +27,33 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public void saveActivity(JSONObject activity) {
-        activityDao.saveActivity(activity);
+        activityDao.saveActivity(activity, Consts.MONGODB_ACTIVITY_COLLECTIN_NAME);
     }
 
     @Override
-    public List<JSONObject> findAllByUsername(String username) {
+    public void saveActivityDetails(JSONObject activity) {
+        activityDao.saveActivity(activity, Consts.MONGODB_ACTIVITY_DETAIL_COLLECTIN_NAME);
+    }
+
+    @Override
+    public List<Document> findActivityByUsername(String username) {
         UserPartner user = userDao.findUserByUsername(username);
-        return activityDao.findAllByAccessToken(user.getUserAccessToken());
+        return activityDao.findByAccessToken(user.getUserAccessToken(), Consts.MONGODB_ACTIVITY_DETAIL_COLLECTIN_NAME);
     }
 
     @Override
-    public List<JSONObject> findAllByAccessToken(String accessToken) {
-        return activityDao.findAllByAccessToken(accessToken);
+    public List<Document> findActivityByAccessToken(String accessToken) {
+        return activityDao.findByAccessToken(accessToken, Consts.MONGODB_ACTIVITY_DETAIL_COLLECTIN_NAME);
+    }
+
+    @Override
+    public List<Document> findActivityDetailsByUsername(String username) {
+        UserPartner user = userDao.findUserByUsername(username);
+        return activityDao.findByAccessToken(user.getUserAccessToken(), Consts.MONGODB_ACTIVITY_DETAIL_COLLECTIN_NAME);
+    }
+
+    @Override
+    public List<Document> findActivityDetailsByAccessToken(String accessToken) {
+        return activityDao.findByAccessToken(accessToken, Consts.MONGODB_ACTIVITY_DETAIL_COLLECTIN_NAME);
     }
 }

@@ -1,14 +1,12 @@
 package coachingmateanalytics.coachingmate.controller;
 
-import coachingmateanalytics.coachingmate.entity.Statistic;
 import coachingmateanalytics.coachingmate.service.ActivityService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.json.JSONObject;
+import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,17 +24,17 @@ public class ActivityDataRetrieveController {
     @Autowired
     ActivityService activityService;
 
-    @GetMapping("/getAllByUsername")
+    @GetMapping("/getActivityByUsername")
     @ApiOperation(value = "retrieve Data By Username", notes = "query all activity data of specific user")
-    public ResponseEntity<List<JSONObject>> retrieveDataByUser(@ApiParam(required = true, type = "String") @RequestParam("username") String username){
-        List<JSONObject> allByUsername = activityService.findAllByUsername(username);
-        return ResponseEntity.ok(allByUsername);
+    public ResponseEntity<List<Document>> retrieveActivityByUser(@ApiParam(required = true, type = "String") @RequestParam("username") String username){
+        List<Document> activityByUsername = activityService.findActivityByUsername(username);
+        return ResponseEntity.ok(activityByUsername);
     }
 
-    @GetMapping("/getAllByAccessToken")
+    @GetMapping("/getActivityByAccessToken")
     @ApiOperation(value = "retrieve Data By Username", notes = "query all activity data of specific user")
-    public ResponseEntity<List<JSONObject>> retrieveDataByaccessToken(@ApiParam(required = true, type = "String") @RequestParam("accessToken") String accessToken){
-        List<JSONObject> allByaccessToken = activityService.findAllByAccessToken(accessToken);
-        return ResponseEntity.ok(allByaccessToken);
+    public ResponseEntity<List<Document>> retrieveActivityByaccessToken(@ApiParam(required = true, type = "String") @RequestParam("accessToken") String accessToken){
+        List<Document> activityByAccessToken = activityService.findActivityByAccessToken(accessToken);
+        return ResponseEntity.ok(activityByAccessToken);
     }
 }

@@ -1,5 +1,6 @@
 package coachingmateanalytics.coachingmate.service;
 
+import org.bson.Document;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -10,6 +11,11 @@ import java.util.List;
  */
 public interface ActivityService {
     void saveActivity(JSONObject activity);
-    List<JSONObject> findAllByUsername(String username);
-    List<JSONObject> findAllByAccessToken(String accessToken);
+    void saveActivityDetails(JSONObject activity);
+
+    List<Document> findActivityByUsername(String username);
+    List<Document> findActivityDetailsByUsername(String username);
+
+    List<Document> findActivityByAccessToken(String accessToken);
+    List<Document> findActivityDetailsByAccessToken(String accessToken);
 }

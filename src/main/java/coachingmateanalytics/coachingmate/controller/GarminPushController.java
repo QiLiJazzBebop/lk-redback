@@ -1,18 +1,12 @@
 package coachingmateanalytics.coachingmate.controller;
 
-import coachingmateanalytics.coachingmate.entity.Statistic;
 import coachingmateanalytics.coachingmate.service.ActivityService;
 
 
-
-import hirondelle.date4j.DateTime;
+import coachingmateanalytics.coachingmate.utils.Consts;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import net.studioblueplanet.fitreader.FitReader;
-import net.studioblueplanet.fitreader.FitRecord;
-import net.studioblueplanet.fitreader.FitRecordRepository;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,11 +15,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.sql.Timestamp;
-import java.util.Iterator;
 
 @RestController
 public class GarminPushController {
@@ -130,15 +121,18 @@ public class GarminPushController {
 //        return ResponseEntity.accepted().headers(httpHeaders).body("Accept the pushed file");
 //    }
 
-    @PostMapping("/activity")
+    @PostMapping("/activities")
     @ApiOperation(value = "push2 data url", notes = "configure2 this url to end point configuration, " +
             "and the garmin endpoint will transfer the data to this server")
-    public ResponseEntity<String> activityReceiverFromGarmin(@RequestBody String info){
-        logger.debug("start push activity Receiver From Garmin data");
+    public ResponseEntity<String> activityReceiverFromGarmin(@RequestBody String info,
+                                                             @ApiParam(required = false, type = "String")
+                                                             @RequestParam(value = "uploadStartTimeInSeconds") String uploadStartTimeInSeconds,
+                                                             @ApiParam(required = false, type = "String")
+                                                             @RequestParam(value = "uploadEndTimeInSeconds") String oauthToken){
+        logger.info("start push activity Receiver From Garmin data");
         HttpHeaders httpHeaders = new HttpHeaders();
 
         try {
-//            JSONObject obj = new JSONObject("{\"activities\":[{\"durationInSeconds\":15,\"activeKilocalories\":1,\"averageSpeedInMetersPerSecond\":0.37,\"averageHeartRateInBeatsPerMinute\":99,\"distanceInMeters\":5.62,\"activityName\":\"Running\",\"userId\":\"5073e79f-df60-45dc-92f2-bc0ef300f1f0\",\"deviceName\":\"forerunner935\",\"steps\":8,\"averageRunCadenceInStepsPerMinute\":25.828125,\"averagePaceInMinutesPerKilometer\":45.045044,\"activityId\":8623463169,\"startTimeInSeconds\":1649748853,\"userAccessToken\":\"227a7c55-590d-498f-97ad-fb6ba3cb259f\",\"startTimeOffsetInSeconds\":36000,\"maxPaceInMinutesPerKilometer\":8.888888,\"maxHeartRateInBeatsPerMinute\":107,\"summaryId\":\"8623463169\",\"maxRunCadenceInStepsPerMinute\":156.0,\"maxSpeedInMetersPerSecond\":1.875,\"activityType\":\"RUNNING\"}]}");
             JSONObject obj = new JSONObject(info);
             JSONArray array = obj.getJSONArray("activities");
             for (int i = 0; i < array.length(); i++) {
@@ -154,13 +148,13 @@ public class GarminPushController {
         return ResponseEntity.accepted().headers(httpHeaders).body("Accept the pushed file");
     }
 
-    @PostMapping("/push")
-    @ApiOperation(value = "push data url", notes = "configure this url to end point configuration, " +
-            "and the garmin endpoint will transfer the data to this server")
-    public ResponseEntity<String> fileReceiverFromGarmin(@ApiParam(type = "MultipartFile") MultipartFile file, @ApiParam(type = "String") String uploadMetaData) {
-        logger.info(String.valueOf(file.getClass()));
-        return null;
-    }
+//    @PostMapping("/push")
+//    @ApiOperation(value = "push data url", notes = "configure this url to end point configuration, " +
+//            "and the garmin endpoint will transfer the data to this server")
+//    public ResponseEntity<String> fileReceiverFromGarmin(@ApiParam(type = "MultipartFile") MultipartFile file, @ApiParam(type = "String") String uploadMetaData) {
+//        logger.info(String.valueOf(file.getClass()));
+//        return null;
+//    }
 
     @PostMapping("/pushActivityDetails")
     @ApiOperation(value = "push data url", notes = "configure this url to end point configuration, " +

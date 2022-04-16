@@ -1,6 +1,7 @@
 package coachingmateanalytics.coachingmate.entity;
 
 import io.swagger.annotations.ApiModel;
+import java.util.Date;
 
 @ApiModel
 public class UserPartner {
@@ -11,6 +12,7 @@ public class UserPartner {
     private String userAccessToken;
     private String userAccessSecret;
     private String password;
+    private long logInLastTime;
 
     public String getUserAccessSecret() {
         return userAccessSecret;
@@ -28,6 +30,10 @@ public class UserPartner {
         super();
         this.username = username;
         this.userAccessToken = userAccessToken;
+        // get the history log when first log in
+        Date now = new Date();
+        logInLastTime = now.getTime() - 2591999;
+
 
     }
     public UserPartner(String username, String userAccessToken, String userAccessSecret) {
@@ -92,6 +98,20 @@ public class UserPartner {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Long getlogInLastTime() {
+        long lastLogInLastTime = this.logInLastTime;
+        // get the history log when first log in
+        Date now = new Date();
+        // then update the last log in time
+        this.logInLastTime = now.getTime();
+        return lastLogInLastTime;
+    }
+
+    public Long getlogInCurrentTime() {
+        // get current log in time
+        return this.logInLastTime;
     }
 
     @Override

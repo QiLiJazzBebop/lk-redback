@@ -25,7 +25,7 @@ public class ActivityDaoImplTest extends AppTest {
 
     @Test
     public void findAllByAccessToken() {
-//        List<Activity> allByAccessToken = activityDao.findAllByAccessToken("3f3d5af3-7847-413e-a9fe-47aeffb6de44");
+//        List<Activity> allByAccessToken = activityDao.findByAccessToken("3f3d5af3-7847-413e-a9fe-47aeffb6de44");
 //        int i = 1;
 //        for (Activity activity : allByAccessToken) {
 //            logger.info(activity.getAccessToken() + i + " : " + activity.getData());
