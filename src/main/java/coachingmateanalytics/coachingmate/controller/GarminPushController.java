@@ -156,9 +156,22 @@ public class GarminPushController {
     @ApiOperation(value = "push data url", notes = "configure this url to end point configuration, " +
             "and the garmin endpoint will transfer the data to this server")
     public ResponseEntity<String> activityDetailsReceiverFromGarmin(@RequestBody String info) {
-        logger.info("Hello, this is details: " + info);
+        logger.info("start push activity details Receiver From Garmin data");
         HttpHeaders httpHeaders = new HttpHeaders();
-//        activityService.saveActivityDetails(info);
-        return ResponseEntity.accepted().headers(httpHeaders).body("Accept the pushed file ##################");
+
+        try {
+            JSONObject obj = new JSONObject(info);
+            JSONArray array = obj.getJSONArray("activityDetails");
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject activityDetail = array.getJSONObject(i);
+                activityService.saveActivityDetails(activityDetail);
+            }
+        }
+        catch (Exception e){
+            httpHeaders.set("Get json fault", "120");
+            return ResponseEntity.status(503).headers(httpHeaders).body("Failed to process. Reason : " + e.getMessage());
+        }
+        httpHeaders.set("Location", "public/garmin_raw");
+        return ResponseEntity.accepted().headers(httpHeaders).body("Accept the pushed file");
     }
 }

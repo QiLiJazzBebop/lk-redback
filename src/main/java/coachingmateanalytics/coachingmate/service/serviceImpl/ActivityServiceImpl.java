@@ -31,8 +31,8 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public void saveActivityDetails(String activity) {
-        activityDao.saveActivityString(activity);
+    public void saveActivityDetails(JSONObject activity) {
+        activityDao.saveActivity(activity, Consts.MONGODB_ACTIVITY_DETAIL_COLLECTIN_NAME);
     }
 
     @Override
