@@ -38,12 +38,12 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public List<Document> findActivityByUsername(String username) {
         UserPartner user = userDao.findUserByUsername(username);
-        return activityDao.findByAccessToken(user.getUserAccessToken(), Consts.MONGODB_ACTIVITY_DETAIL_COLLECTIN_NAME);
+        return activityDao.findByAccessToken(user.getUserAccessToken(), Consts.MONGODB_ACTIVITY_COLLECTIN_NAME);
     }
 
     @Override
     public List<Document> findActivityByAccessToken(String accessToken) {
-        return activityDao.findByAccessToken(accessToken, Consts.MONGODB_ACTIVITY_DETAIL_COLLECTIN_NAME);
+        return activityDao.findByAccessToken(accessToken, Consts.MONGODB_ACTIVITY_COLLECTIN_NAME);
     }
 
     @Override
