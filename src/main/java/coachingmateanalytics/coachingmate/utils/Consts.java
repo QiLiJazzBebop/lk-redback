@@ -10,5 +10,5 @@ public final class Consts {
     public static final String MONGODB_TOKEN_COLLECTIN_NAME="requestToken";
     public static final String MONGODB_USER_COLLECTIN_NAME="user";
     public static final String MONGODB_ACTIVITY_COLLECTIN_NAME="activity";
-    public static final String MONGODB_ACTIVITY_DETAIL_COLLECTIN_NAME="activityDetail";
+    public static final String MONGODB_ACTIVITY_DETAIL_COLLECTIN_NAME="stress";
 }
