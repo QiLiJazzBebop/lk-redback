@@ -179,11 +179,12 @@ public class GarminPushController {
     @ApiOperation(value = "push data url", notes = "configure this url to end point configuration, " +
             "and the garmin endpoint will transfer the data to this server")
     public ResponseEntity<String> epochsReceiverFromGarmin(@RequestBody String info) {
-        logger.info("start push activity details Receiver From Garmin data");
+        logger.info("start push epochs Receiver From Garmin data");
         HttpHeaders httpHeaders = new HttpHeaders();
-        logger.info(info);
+
         try {
-            JSONArray array = new JSONArray(info);
+            JSONObject obj = new JSONObject(info);
+            JSONArray array = obj.getJSONArray("epochs");
             for (int i = 0; i < array.length(); i++) {
                 JSONObject epoch = array.getJSONObject(i);
                 activityService.saveEpoch(epoch);
