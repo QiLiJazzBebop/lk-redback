@@ -11,6 +11,7 @@ import java.util.List;
  */
 public interface ActivityDao {
     void saveActivity(JSONObject activity, String savePosition);
+    void saveActivityString(String activity);
 
     List<Document> findByAccessToken(String accessToken, String savePosition);
 }

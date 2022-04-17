@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface ActivityService {
     void saveActivity(JSONObject activity);
-    void saveActivityDetails(JSONObject activity);
+    void saveActivityDetails(String activity);
 
     List<Document> findActivityByUsername(String username);
     List<Document> findActivityDetailsByUsername(String username);

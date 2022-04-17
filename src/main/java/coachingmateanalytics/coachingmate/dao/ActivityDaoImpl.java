@@ -34,6 +34,12 @@ public class ActivityDaoImpl implements ActivityDao {
 
 
     @Override
+    public void saveActivityString(String activity) {
+        Document doc = Document.parse(activity);
+        mongoTemplate.save(doc, Consts.MONGODB_ACTIVITY_DETAIL_COLLECTIN_NAME);
+    }
+
+    @Override
     public List<Document> findByAccessToken(String accessToken, String savePosition) {
         Query query = Query.query(Criteria.where("userAccessToken").is(accessToken));
         List<Document> Activities = mongoTemplate.find(query, Document.class,savePosition);
