@@ -156,7 +156,7 @@ public class GarminPushController {
 //        return null;
 //    }
 
-    @PostMapping("/pushActivityDetails")
+    @PostMapping("/activityDetails")
     @ApiOperation(value = "push data url", notes = "configure this url to end point configuration, " +
             "and the garmin endpoint will transfer the data to this server")
     public ResponseEntity<String> activityDetailsReceiverFromGarmin(@ApiParam(type = "String") String info) {
