@@ -124,11 +124,7 @@ public class GarminPushController {
     @PostMapping("/activities")
     @ApiOperation(value = "push2 data url", notes = "configure2 this url to end point configuration, " +
             "and the garmin endpoint will transfer the data to this server")
-    public ResponseEntity<String> activityReceiverFromGarmin(@RequestBody String info,
-                                                             @ApiParam(required = false, type = "String")
-                                                             @RequestParam(value = "uploadStartTimeInSeconds") String uploadStartTimeInSeconds,
-                                                             @ApiParam(required = false, type = "String")
-                                                             @RequestParam(value = "uploadEndTimeInSeconds") String oauthToken){
+    public ResponseEntity<String> activityReceiverFromGarmin(@RequestBody String info){
         logger.info("start push activity Receiver From Garmin data");
         HttpHeaders httpHeaders = new HttpHeaders();
 
