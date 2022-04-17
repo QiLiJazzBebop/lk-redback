@@ -39,7 +39,7 @@ public class GarminPushController {
 ////            String dataHead = new String(data, 0, 47182);
 ////            logger.info("Activity Data" + dataHead);
 ////            Activity activity = new Activity("3f3d5af3-7847-413e-a9fe-47aeffb6de44", uploadMetaData);
-////            activityService.saveActivity(activity);
+////            activityService.saveMongodb(activity);
 //            JSONObject jsonObject = JSON.parseObject(uploadMetaData);
 //            String access_token = jsonObject.getString("oauthToken");
 //            FitRecordRepository repository;
@@ -112,7 +112,7 @@ public class GarminPushController {
 //                                                gender, age, height, weight, type, timestamp.toString(), avg_heart_rate, max_heart_rate, swim_stroke,
 //                                                avg_stance_time_percent, serial_number, session_id);
 //            logger.info("finishing parse data ");
-//            activityService.saveActivity(statistic);
+//            activityService.saveMongodb(statistic);
 //        } catch (Exception e) {
 //            httpHeaders.set("Retry-After", "120");
 //            return ResponseEntity.status(503).headers(httpHeaders).body("Failed to process. Reason : " + e.getMessage());
@@ -174,4 +174,28 @@ public class GarminPushController {
         httpHeaders.set("Location", "public/garmin_raw");
         return ResponseEntity.accepted().headers(httpHeaders).body("Accept the pushed file");
     }
+
+    @PostMapping("/epochs")
+    @ApiOperation(value = "push data url", notes = "configure this url to end point configuration, " +
+            "and the garmin endpoint will transfer the data to this server")
+    public ResponseEntity<String> epochsReceiverFromGarmin(@RequestBody String info) {
+        logger.info("start push activity details Receiver From Garmin data");
+        HttpHeaders httpHeaders = new HttpHeaders();
+
+        try {
+            JSONObject obj = new JSONObject(info);
+            JSONArray array = obj.getJSONArray("activityDetails");
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject epoch = array.getJSONObject(i);
+                activityService.saveEpoch(epoch);
+            }
+        }
+        catch (Exception e){
+            httpHeaders.set("Get json fault", "120");
+            return ResponseEntity.status(503).headers(httpHeaders).body("Failed to process. Reason : " + e.getMessage());
+        }
+        httpHeaders.set("Location", "public/garmin_raw");
+        return ResponseEntity.accepted().headers(httpHeaders).body("Accept the pushed file");
+    }
 }
+

@@ -20,7 +20,7 @@ public class ActivityDaoImplTest extends AppTest {
     @Test
     public void saveActivity() {
 //        Statistic activity = new Activity("3f3d5af3-7847-413e-a9fe-47aeffb6de44", "testData2");
-//        activityDao.saveActivity(activity);
+//        activityDao.saveMongodb(activity);
     }
 
     @Test

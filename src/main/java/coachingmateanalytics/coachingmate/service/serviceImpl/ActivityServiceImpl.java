@@ -27,12 +27,17 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public void saveActivity(JSONObject activity) {
-        activityDao.saveActivity(activity, Consts.MONGODB_ACTIVITY_COLLECTIN_NAME);
+        activityDao.saveMongodb(activity, Consts.MONGODB_ACTIVITY_COLLECTIN_NAME);
     }
 
     @Override
     public void saveActivityDetails(JSONObject activity) {
-        activityDao.saveActivity(activity, Consts.MONGODB_ACTIVITY_DETAIL_COLLECTIN_NAME);
+        activityDao.saveMongodb(activity, Consts.MONGODB_ACTIVITY_DETAIL_COLLECTIN_NAME);
+    }
+
+    @Override
+    public void saveEpoch(JSONObject epoch) {
+        activityDao.saveMongodb(epoch, Consts.MONGODB_EPOCH_COLLECTIN_NAME);
     }
 
     @Override

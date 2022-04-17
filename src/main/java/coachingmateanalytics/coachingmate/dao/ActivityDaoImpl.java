@@ -27,7 +27,7 @@ public class ActivityDaoImpl implements ActivityDao {
     private MongoTemplate mongoTemplate;
 
     @Override
-    public void saveActivity(JSONObject activity, String savePosition) {
+    public void saveMongodb(JSONObject activity, String savePosition) {
         Document doc = Document.parse(activity.toString());
         mongoTemplate.save(doc, savePosition);
     }

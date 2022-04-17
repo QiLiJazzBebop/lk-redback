@@ -10,7 +10,7 @@ import java.util.List;
  * @Description:
  */
 public interface ActivityDao {
-    void saveActivity(JSONObject activity, String savePosition);
+    void saveMongodb(JSONObject activity, String savePosition);
     void saveActivityString(String activity);
 
     List<Document> findByAccessToken(String accessToken, String savePosition);
