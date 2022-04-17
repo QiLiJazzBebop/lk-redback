@@ -156,7 +156,7 @@ public class GarminPushController {
     @ApiOperation(value = "push data url", notes = "configure this url to end point configuration, " +
             "and the garmin endpoint will transfer the data to this server")
     public ResponseEntity<String> activityDetailsReceiverFromGarmin(@ApiParam(type = "String") String info) {
-        logger.info(info);
+        logger.info("Hello, this is details: " + info);
         HttpHeaders httpHeaders = new HttpHeaders();
 //        activityService.saveActivityDetails(info);
         return ResponseEntity.accepted().headers(httpHeaders).body("Accept the pushed file ##################");
