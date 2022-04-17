@@ -182,19 +182,18 @@ public class GarminPushController {
         logger.info("start push activity details Receiver From Garmin data");
         HttpHeaders httpHeaders = new HttpHeaders();
         logger.info(info);
-//        try {
-//            JSONObject obj = new JSONObject(info);
-//            JSONArray array = obj.getJSONArray("activityDetails");
-//            for (int i = 0; i < array.length(); i++) {
-//                JSONObject epoch = array.getJSONObject(i);
-//                activityService.saveEpoch(epoch);
-//            }
-//        }
-//        catch (Exception e){
-//            httpHeaders.set("Get json fault", "120");
-//            return ResponseEntity.status(503).headers(httpHeaders).body("Failed to process. Reason : " + e.getMessage());
-//        }
-//        httpHeaders.set("Location", "public/garmin_raw");
+        try {
+            JSONArray array = new JSONArray(info);
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject epoch = array.getJSONObject(i);
+                activityService.saveEpoch(epoch);
+            }
+        }
+        catch (Exception e){
+            httpHeaders.set("Get json fault", "120");
+            return ResponseEntity.status(503).headers(httpHeaders).body("Failed to process. Reason : " + e.getMessage());
+        }
+        httpHeaders.set("Location", "public/garmin_raw");
         return ResponseEntity.accepted().headers(httpHeaders).body("Accept the pushed file");
     }
 }
