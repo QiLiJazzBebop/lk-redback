@@ -155,7 +155,7 @@ public class GarminPushController {
     @PostMapping("/activityDetails")
     @ApiOperation(value = "push data url", notes = "configure this url to end point configuration, " +
             "and the garmin endpoint will transfer the data to this server")
-    public ResponseEntity<String> activityDetailsReceiverFromGarmin(@ApiParam(type = "String") String info) {
+    public ResponseEntity<String> activityDetailsReceiverFromGarmin(@RequestBody String info) {
         logger.info("Hello, this is details: " + info);
         HttpHeaders httpHeaders = new HttpHeaders();
 //        activityService.saveActivityDetails(info);
