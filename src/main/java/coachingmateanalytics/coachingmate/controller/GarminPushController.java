@@ -158,7 +158,7 @@ public class GarminPushController {
     public ResponseEntity<String> activityDetailsReceiverFromGarmin(@ApiParam(type = "String") String info) {
         logger.info(info);
         HttpHeaders httpHeaders = new HttpHeaders();
-        activityService.saveActivityDetails(info);
+//        activityService.saveActivityDetails(info);
         return ResponseEntity.accepted().headers(httpHeaders).body("Accept the pushed file ##################");
     }
 }
