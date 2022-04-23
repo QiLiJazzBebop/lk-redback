@@ -13,6 +13,13 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+
+/**
+ * @Date: 23/4/22 16:10
+ * @Description:
+ * add swagger option, easy to develop for front end developer
+ */
+
 @Configuration
 @EnableSwagger2
 public class Swagger2Config {
@@ -20,7 +27,7 @@ public class Swagger2Config {
 
     @Bean
     public Docket swaggerDocket(){
-        LOGGER.debug("Coachingmate2020--API configuration");
+        LOGGER.debug("Coachingmate2022--API configuration");
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
@@ -29,9 +36,9 @@ public class Swagger2Config {
     }
 
     private ApiInfo apiInfo(){
-        return new ApiInfoBuilder().description("Coachingmate2020 API")
-                .contact(new Contact("Saul", "http://localhost:8080/index.html", "shuaimou77@gmail.com"))
-                .version("1.0.0")
+        return new ApiInfoBuilder().description("Coachingmate2022 API")
+                .contact(new Contact("Saul", "http://localhost:8080/index.html", "rance.liki@gmail.com"))
+                .version("2.0.0")
                 .termsOfServiceUrl("http://47.74.88.139:8080/")
                 .build();
     }

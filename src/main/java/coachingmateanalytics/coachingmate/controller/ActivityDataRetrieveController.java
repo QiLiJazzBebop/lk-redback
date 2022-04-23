@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 /**
- * @Date: 24/9/20 15:51
+ * @Date: 23/4/22 16:06
  * @Description:
+ * There are changes from original version
+ * adjust the @GetMapping to new path
+ * retrieve all the athlete data as List<Document> format
  */
 @Controller
 @RequestMapping("/activity")
