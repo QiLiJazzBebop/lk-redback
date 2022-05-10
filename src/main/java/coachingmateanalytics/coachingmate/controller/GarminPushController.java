@@ -1,11 +1,9 @@
 package coachingmateanalytics.coachingmate.controller;
 
-import coachingmateanalytics.coachingmate.service.ActivityService;
+import coachingmateanalytics.coachingmate.service.FrontEndService;
 
 
-import coachingmateanalytics.coachingmate.utils.Consts;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -15,7 +13,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -33,7 +30,7 @@ public class GarminPushController {
     public static final String STORE_PATH="D:/coachingmate/public/garmin_raw/";
 
     @Autowired
-    ActivityService activityService;
+    FrontEndService frontEndService;
 
     @PostMapping("/activities")
     @ApiOperation(value = "push2 data url", notes = "configure2 this url to end point configuration, " +
@@ -47,7 +44,7 @@ public class GarminPushController {
             JSONArray array = obj.getJSONArray("activities");
             for (int i = 0; i < array.length(); i++) {
                 JSONObject activity = array.getJSONObject(i);
-                activityService.saveActivity(activity);
+                frontEndService.saveActivity(activity);
             }
         }
         catch (Exception e){
@@ -71,7 +68,7 @@ public class GarminPushController {
             JSONArray array = obj.getJSONArray("activityDetails");
             for (int i = 0; i < array.length(); i++) {
                 JSONObject activityDetail = array.getJSONObject(i);
-                activityService.saveActivityDetails(activityDetail);
+                frontEndService.saveActivityDetails(activityDetail);
             }
         }
         catch (Exception e){
@@ -94,7 +91,7 @@ public class GarminPushController {
             JSONArray array = obj.getJSONArray("epochs");
             for (int i = 0; i < array.length(); i++) {
                 JSONObject epoch = array.getJSONObject(i);
-                activityService.saveEpoch(epoch);
+                frontEndService.saveEpoch(epoch);
             }
         }
         catch (Exception e){

@@ -1,6 +1,5 @@
 package coachingmateanalytics.coachingmate.dao;
 
-import coachingmateanalytics.coachingmate.utils.Consts;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.bson.Document;
 import org.json.JSONObject;
@@ -21,7 +20,7 @@ import java.util.List;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 
 @Component
-public class ActivityDaoImpl implements ActivityDao {
+public class RetrieveFromDatabaseDaoImpl implements RetrieveFromDatabaseDao {
 
     @Autowired
     private MongoTemplate mongoTemplate;
@@ -32,12 +31,6 @@ public class ActivityDaoImpl implements ActivityDao {
         mongoTemplate.save(doc, savePosition);
     }
 
-
-    @Override
-    public void saveActivityString(String activity) {
-        Document doc = Document.parse(activity);
-        mongoTemplate.save(doc, Consts.MONGODB_ACTIVITY_DETAIL_COLLECTIN_NAME);
-    }
 
     @Override
     public List<Document> findByAccessToken(String accessToken, String savePosition) {

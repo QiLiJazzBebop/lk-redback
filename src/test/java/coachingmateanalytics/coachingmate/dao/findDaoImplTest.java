@@ -11,11 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @Date: 24/9/20 12:04
  * @Description:
  */
-public class ActivityDaoImplTest extends AppTest {
-    private static final Logger logger = LoggerFactory.getLogger(ActivityDaoImplTest.class);
+public class findDaoImplTest extends AppTest {
+    private static final Logger logger = LoggerFactory.getLogger(findDaoImplTest.class);
 
     @Autowired
-    private ActivityDao activityDao;
+    private RetrieveFromDatabaseDao retrieveFromDatabaseDao;
 
     @Test
     public void saveActivity() {
