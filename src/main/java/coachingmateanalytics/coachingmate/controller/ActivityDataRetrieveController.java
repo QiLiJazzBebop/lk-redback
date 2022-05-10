@@ -106,4 +106,16 @@ public class ActivityDataRetrieveController {
         return ResponseEntity.ok(returnList);
     }
 
+
+    @GetMapping("/getEpochByAccessToken")
+    @ApiOperation(value = "retrieve Data By Username", notes = "query all activity data of specific user")
+    public ResponseEntity<List<Document>> retrieveEpochByAccessToken(@ApiParam(required = true, type = "String") @RequestParam("accessToken") String accessToken) {
+        // reference
+        // java.util.Date time=new Date((long)timeStamp*1000);
+        // const yesterday = new Date(today)
+        // yesterday.setDate(yesterday.getDate() - 1)
+
+        List<Document> epochByAccessToken = frontEndService.findEpochByAccessToken(accessToken);
+        return ResponseEntity.ok(epochByAccessToken);
+    }
 }
