@@ -15,6 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
 /**
+ * @Auther: Qi Li, Yu Wu
  * @Date: 23/4/22 16:10
  * @Description:
  * add swagger option, easy to develop for front end developer

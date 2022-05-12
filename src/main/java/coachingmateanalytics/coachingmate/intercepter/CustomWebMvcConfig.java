@@ -6,11 +6,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-/***
- * @Author Saul
- * @Description
- * @Date 19:43 13/9/20
- */
+
 @Configuration
 public class CustomWebMvcConfig implements WebMvcConfigurer {
     @Override

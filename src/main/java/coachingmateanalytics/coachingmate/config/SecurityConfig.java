@@ -1,11 +1,6 @@
 package coachingmateanalytics.coachingmate.config;
 
 
-/**
- * @Auther: Saul
- * @Date: 1/10/20 09:50
- * @Description:
- */
 public class SecurityConfig{
 
 }

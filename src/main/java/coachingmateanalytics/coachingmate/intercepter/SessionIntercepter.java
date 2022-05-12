@@ -8,11 +8,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * @Auther: Saul
- * @Date: 19:46 13/9/20
- * @Description: 用户登录检查拦截
- */
+
 public class SessionIntercepter implements HandlerInterceptor {
     private static final Logger logger = LoggerFactory.getLogger(SessionIntercepter.class);
 

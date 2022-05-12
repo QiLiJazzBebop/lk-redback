@@ -9,11 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * @Auther: Saul
- * @Date: 24/9/20 00:47
- * @Description:
- */
+
 @RestController
 //@CrossOrigin("http://localhost:3000")
 public class RegistryController {
