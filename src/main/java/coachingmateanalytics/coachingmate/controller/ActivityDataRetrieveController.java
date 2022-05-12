@@ -44,6 +44,19 @@ public class ActivityDataRetrieveController {
         return ResponseEntity.ok(activityByAccessToken);
     }
 
+    @GetMapping("/getSwimActivityByAccessToken")
+    @ApiOperation(value = "retrieve Data By Username", notes = "query all activity details data of specific user")
+    public ResponseEntity<List<Document>> retrieveSwimByAccessToken(@ApiParam(required = true, type = "String") @RequestParam("accessToken") String accessToken) {
+
+        List<Document> activityDetailsByAccessToken = frontEndService.findActivityByAccessToken(accessToken);
+//        for (Document epoch : activityDetailsByAccessToken){
+//            String activityType = epoch.getString("activityType");
+//            if activityType == ""
+//
+//        }
+        return ResponseEntity.ok(activityDetailsByAccessToken);
+    }
+
     /* From this part, provide data to front end
        1) epoch data, json format:
        [{‘date’: 2022-05-12, ‘calories’:120, ‘steps’:1000}, {‘date’: 2022-05-13, ‘calories’:150, ‘steps’:1300}]
@@ -110,24 +123,9 @@ public class ActivityDataRetrieveController {
     @GetMapping("/getEpochByAccessToken")
     @ApiOperation(value = "retrieve Data By Username", notes = "query all activity data of specific user")
     public ResponseEntity<List<Document>> retrieveEpochByAccessToken(@ApiParam(required = true, type = "String") @RequestParam("accessToken") String accessToken) {
-        // reference
-        // java.util.Date time=new Date((long)timeStamp*1000);
-        // const yesterday = new Date(today)
-        // yesterday.setDate(yesterday.getDate() - 1)
 
         List<Document> epochByAccessToken = frontEndService.findEpochByAccessToken(accessToken);
         return ResponseEntity.ok(epochByAccessToken);
     }
 
-    @GetMapping("/getActivityDetailsByAccessToken")
-    @ApiOperation(value = "retrieve Data By Username", notes = "query all activity details data of specific user")
-    public ResponseEntity<List<Document>> retrieveActivityDetailsByAccessToken(@ApiParam(required = true, type = "String") @RequestParam("accessToken") String accessToken) {
-        // reference
-        // java.util.Date time=new Date((long)timeStamp*1000);
-        // const yesterday = new Date(today)
-        // yesterday.setDate(yesterday.getDate() - 1)
-
-        List<Document> activityDetailsByAccessToken = frontEndService.findActivityDetailsByAccessToken(accessToken);
-        return ResponseEntity.ok(activityDetailsByAccessToken);
-    }
 }
