@@ -44,17 +44,19 @@ public class ActivityDataRetrieveController {
         return ResponseEntity.ok(activityByAccessToken);
     }
 
-    @GetMapping("/getSwimActivityByAccessToken")
+    @GetMapping("/getSwimmingActivityByAccessToken")
     @ApiOperation(value = "retrieve Data By Username", notes = "query all activity details data of specific user")
     public ResponseEntity<List<Document>> retrieveSwimByAccessToken(@ApiParam(required = true, type = "String") @RequestParam("accessToken") String accessToken) {
 
-        List<Document> activityDetailsByAccessToken = frontEndService.findActivityByAccessToken(accessToken);
-//        for (Document epoch : activityDetailsByAccessToken){
-//            String activityType = epoch.getString("activityType");
-//            if activityType == ""
-//
-//        }
-        return ResponseEntity.ok(activityDetailsByAccessToken);
+        List<Document> activityByAccessToken = frontEndService.findActivityByAccessToken(accessToken);
+        List<Document> returnList = new ArrayList<>();
+        for (Document activity : activityByAccessToken){
+            String activityName = activity.getString("activityName");
+            if(activityName == "Swimming "){
+                returnList.add(activity);
+            }
+        }
+        return ResponseEntity.ok(returnList);
     }
 
     /* From this part, provide data to front end
