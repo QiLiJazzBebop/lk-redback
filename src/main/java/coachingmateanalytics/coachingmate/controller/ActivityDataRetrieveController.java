@@ -53,7 +53,7 @@ public class ActivityDataRetrieveController {
         List<Document> returnList = new ArrayList<>();
         for (Document activity : activityByAccessToken){
             String activityName = activity.getString("activityName");
-            if(activityName == "Swimming "){
+            if(activityName.equals("Swimming ")){
                 returnList.add(activity);
             }
         }
