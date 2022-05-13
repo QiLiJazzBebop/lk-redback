@@ -48,17 +48,32 @@ public class ActivityDataRetrieveController {
     @GetMapping("/getSwimmingActivityByAccessToken")
     @ApiOperation(value = "retrieve Data By Username", notes = "query all activity details data of specific user")
     public ResponseEntity<List<Document>> retrieveSwimByAccessToken(@ApiParam(required = true, type = "String") @RequestParam("accessToken") String accessToken) {
-
         List<Document> activityByAccessToken = frontEndService.findActivityByAccessToken(accessToken);
         List<Document> returnList = new ArrayList<>();
         for (Document activity : activityByAccessToken){
             String activityName = activity.getString("activityName");
             if(activityName.equals("Swimming ")){
-                returnList.add(activity);
+            	Document tmpDocument = new Document()
+                        .append("activityType", "Swimming")
+                        .append("activityId", 0)
+                        .append("time", 0)
+            			.append("distance", 0)
+            			.append("avgSpeed", 0.0)
+                        .append("calories", 0)
+                        .append("pace", 0.0);
+                tmpDocument.replace("activityId",activity.get("activityId"));
+            	tmpDocument.replace("time",activity.getInteger("durationInSeconds"));
+                tmpDocument.replace("distance",activity.getInteger("distanceInMeters"));
+                tmpDocument.replace("avgSpeed",activity.getDouble("averageSpeedInMetersPerSecond"));
+                tmpDocument.replace("calories",activity.getInteger("activeKilocalories"));
+                tmpDocument.replace("pace",activity.getDouble("averagePaceInMinutesPerKilometer"));
+                returnList.add(tmpDocument);
             }
         }
         return ResponseEntity.ok(returnList);
     }
+    
+
 
     /* From this part, provide data to front end
        1) epoch data, json format:
