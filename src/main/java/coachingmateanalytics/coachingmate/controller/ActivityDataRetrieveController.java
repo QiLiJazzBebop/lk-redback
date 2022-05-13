@@ -104,6 +104,63 @@ public class ActivityDataRetrieveController {
         return ResponseEntity.ok(returnList);
     }
 
+    @GetMapping("/getRunningActivityByAccessToken")
+    @ApiOperation(value = "retrieve Data By Username", notes = "query all activity details data of specific user")
+    public ResponseEntity<List<Document>> retrieveRunByAccessToken(@ApiParam(required = true, type = "String") @RequestParam("accessToken") String accessToken) {
+        List<Document> activityByAccessToken = frontEndService.findActivityByAccessToken(accessToken);
+        List<Document> returnList = new ArrayList<>();
+        for (Document activity : activityByAccessToken){
+            String activityName = activity.getString("activityName");
+            if(activityName.equals("Running")){
+                Document tmpDocument = new Document()
+                        .append("activityType", "Running")
+                        .append("activityId", 0)
+                        .append("time", 0)
+                        .append("distance", 0)
+                        .append("avgSpeed", 0.0)
+                        .append("calories", 0)
+                        .append("pace", 0.0)
+                        .append("avgCadence", 0)
+                        .append("heartRate", 0);
+                tmpDocument.replace("activityId",activity.get("activityId"));
+                tmpDocument.replace("time",activity.getInteger("durationInSeconds"));
+                try {
+                    tmpDocument.replace("distance",activity.getInteger("distanceInMeters"));
+                } catch (Exception e){
+                    tmpDocument.replace("distance",0);
+                }
+                try {
+                    tmpDocument.replace("avgSpeed",activity.getDouble("averageSpeedInMetersPerSecond"));
+                } catch (Exception e){
+                    tmpDocument.replace("avgSpeed",0.0);
+                }
+                try {
+                    tmpDocument.replace("calories",activity.getInteger("activeKilocalories"));
+                } catch (Exception e){
+                    tmpDocument.replace("calories",0);
+                }
+                try {
+                    tmpDocument.replace("pace",activity.getDouble("averagePaceInMinutesPerKilometer"));
+                } catch (Exception e){
+                    tmpDocument.replace("pace",0.0);
+                }
+                try {
+                    tmpDocument.replace("avgCadence",activity.getInteger("averageRunCadenceInStepsPerMinute"));
+                } catch (Exception e){
+                    tmpDocument.replace("avgCadence",0);
+                }
+                try {
+                    tmpDocument.replace("heartRate",activity.getInteger("averageHeartRateInBeatsPerMinute"));
+                } catch (Exception e){
+                    tmpDocument.replace("heartRate",0);
+                }
+
+                returnList.add(tmpDocument);
+            }
+        }
+        return ResponseEntity.ok(returnList);
+    }
+
     /* From this part, provide data to front end
        1) epoch data, json format:
        [{‘date’: 2022-05-12, ‘calories’:120, ‘steps’:1000}, {‘date’: 2022-05-13, ‘calories’:150, ‘steps’:1300}]
