@@ -72,8 +72,37 @@ public class ActivityDataRetrieveController {
         }
         return ResponseEntity.ok(returnList);
     }
-    
 
+
+    @GetMapping("/getCyclingActivityByAccessToken")
+    @ApiOperation(value = "retrieve Data By Username", notes = "query all activity details data of specific user")
+    public ResponseEntity<List<Document>> retrieveBikeByAccessToken(@ApiParam(required = true, type = "String") @RequestParam("accessToken") String accessToken) {
+        List<Document> activityByAccessToken = frontEndService.findActivityByAccessToken(accessToken);
+        List<Document> returnList = new ArrayList<>();
+        for (Document activity : activityByAccessToken){
+            String activityType = activity.getString("activityType");
+            if(activityType.equals("CYCLING")){
+                Document tmpDocument = new Document()
+                        .append("activityType", "Running")
+                        .append("activityId", 0)
+                        .append("time", 0)
+                        .append("distance", 0)
+                        .append("avgSpeed", 0.0)
+                        .append("calories", 0)
+                        .append("pace", 0.0)
+                        .append("heartRate", 0);
+                tmpDocument.replace("activityId",activity.get("activityId"));
+                tmpDocument.replace("time",activity.getInteger("durationInSeconds"));
+                tmpDocument.replace("distance",activity.getInteger("distanceInMeters"));
+                tmpDocument.replace("avgSpeed",activity.getDouble("averageSpeedInMetersPerSecond"));
+                tmpDocument.replace("calories",activity.getInteger("activeKilocalories"));
+                tmpDocument.replace("pace",activity.getDouble("averagePaceInMinutesPerKilometer"));
+                tmpDocument.replace("heartRate",activity.getInteger("averageHeartRateInBeatsPerMinute"));
+                returnList.add(tmpDocument);
+            }
+        }
+        return ResponseEntity.ok(returnList);
+    }
 
     /* From this part, provide data to front end
        1) epoch data, json format:
