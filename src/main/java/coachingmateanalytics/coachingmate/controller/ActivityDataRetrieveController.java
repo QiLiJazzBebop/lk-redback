@@ -83,7 +83,7 @@ public class ActivityDataRetrieveController {
             String activityType = activity.getString("activityType");
             if(activityType.equals("CYCLING")){
                 Document tmpDocument = new Document()
-                        .append("activityType", "Running")
+                        .append("activityType", "Cycling")
                         .append("activityId", 0)
                         .append("time", 0)
                         .append("distance", 0)
