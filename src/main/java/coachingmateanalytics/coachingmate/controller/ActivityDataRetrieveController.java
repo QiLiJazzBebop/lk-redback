@@ -4,7 +4,6 @@ import coachingmateanalytics.coachingmate.service.FrontEndService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.bson.Document;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.print.Doc;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -43,6 +41,13 @@ public class ActivityDataRetrieveController {
     public ResponseEntity<List<Document>> retrieveActivityByAccessToken(@ApiParam(required = true, type = "String") @RequestParam("accessToken") String accessToken){
         List<Document> activityByAccessToken = frontEndService.findActivityByAccessToken(accessToken);
         return ResponseEntity.ok(activityByAccessToken);
+    }
+
+    @GetMapping("/getActivityDetailsByAccessToken")
+    @ApiOperation(value = "retrieve Data By Username", notes = "query all activity data of specific user")
+    public ResponseEntity<List<Document>> retrieveActivityDetailsByAccessToken(@ApiParam(required = true, type = "String") @RequestParam("accessToken") String accessToken) {
+        List<Document> activityDetailsByAccessToken = frontEndService.findActivityDetailsByAccessToken(accessToken);
+        return ResponseEntity.ok(activityDetailsByAccessToken);
     }
 
     @GetMapping("/getSwimmingActivityByAccessToken")
@@ -184,6 +189,7 @@ public class ActivityDataRetrieveController {
                 .append("date", strDate)
                 .append("calories", 0)
                 .append("distance", 0.0);
+
         return dateUnit;
     }
 
