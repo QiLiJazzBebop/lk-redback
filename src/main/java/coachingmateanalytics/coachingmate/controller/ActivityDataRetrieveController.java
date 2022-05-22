@@ -149,8 +149,8 @@ public class ActivityDataRetrieveController {
         }
         List<Document> returnList = new ArrayList<>();
         for (Document activity : activityByAccessToken){
-            String activityType = activity.getString("activityType");
-            if(activityType.equals("Running")){
+            String activityName = activity.getString("activityName");
+            if(activityName.equals("Running")){
                 ArrayList<Object> details = (ArrayList<Object>) activity.get("details");
                 Document tmpDocument = new Document()
                         .append("activityType", "Running")
