@@ -21,7 +21,6 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/resources" type="java-test-resource" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
@@ -78,6 +77,9 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-aop:5.2.8.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.9.6" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-data-mongodb:2.3.3.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.mongodb:mongodb-driver-sync:4.0.5" level="project" />
+    <orderEntry type="library" name="Maven: org.mongodb:bson:4.0.5" level="project" />
+    <orderEntry type="library" name="Maven: org.mongodb:mongodb-driver-core:4.0.5" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-mongodb:3.0.3.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:5.2.8.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-commons:2.3.3.RELEASE" level="project" />
@@ -129,8 +131,5 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="Maven: com.vaadin.external.google:android-json:0.0.20131108.vaadin1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.mongodb:mongodb-driver-sync:4.0.5" level="project" />
-    <orderEntry type="library" name="Maven: org.mongodb:bson:4.0.5" level="project" />
-    <orderEntry type="library" name="Maven: org.mongodb:mongodb-driver-core:4.0.5" level="project" />
   </component>
 </module>
