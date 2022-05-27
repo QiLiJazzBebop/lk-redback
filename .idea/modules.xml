@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/lk-redback.iml" filepath="$PROJECT_DIR$/lk-redback.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/lk-redback.iml" filepath="$PROJECT_DIR$/.idea/lk-redback.iml" />
     </modules>
   </component>
 </project>
